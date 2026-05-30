@@ -10,6 +10,37 @@ function valida() {
     )
         .then(r => r.json())
         .then(data => {
-            console.log(data);
-        });
+            console.log(data)
+            pintarDatos(data)
+        })
+}
+
+function pintarDatos (params) {
+    const encabezado = `
+        <thead class="table-dark"> 
+        <tr>
+            <th>Usuario</th>
+            <th>Contribuciones</th>
+            <th>Mensajes</th>
+        </tr>
+        </thead>
+        `
+    let mensajes = ""
+    params.mensajes.forEach(m => {
+        mensajes += `<span class="badge bg-primary">${m}</span>`
+    });
+    let cuerpo = `
+        <tbody>
+        <tr>
+            <td>${params.query}</td>
+            <td class="fw-bold">${params.coincidencias}</td>
+            <td>
+            <div class="d-flex flex-wrap gap-1">
+                ${mensajes}
+            </div>
+            </td>
+        </tr>
+        </tbody>
+    `
+    document.getElementById("tabla").innerHTML = encabezado+cuerpo
 }
